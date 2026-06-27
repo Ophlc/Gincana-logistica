@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Rota Zer013 - Conferência de Livros</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="background-grid"></div>
+
+<header>
+
+  <div class="logo-container">
+
+    <img src="rota013.png" alt="Logo Rota">
+
+    <div class="hero-badge">
+      Operação de Conferência
+    </div>
+
+    <h1>ROTA ZERØ13</h1>
+
+    <p class="subtitle">
+      Sistema de Registro de Livros
+    </p>
+
+  </div>
+
+</header>
+
+<main>
+
+  <!-- CRONÔMETRO -->
+
+  <section class="timer-section">
+
+    <div class="section-tag">
+      ⏱ OPERAÇÃO
+    </div>
+
+    <h2>
+      Cronômetro da Operação
+    </h2>
+
+    <div id="timer">
+      00:00:00
+    </div>
+
+    <div class="buttons">
+
+      <button id="startBtn">
+        Iniciar
+      </button>
+
+      <button id="stopBtn">
+        Parar
+      </button>
+
+      <button id="resetBtn">
+        Zerar
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- FORM -->
+
+  <section class="form-section">
+
+    <div class="section-tag">
+      📚 CADASTRO
+    </div>
+
+    <h2>
+      Registrar Livro
+    </h2>
+
+    <form id="productForm">
+
+      <input
+      type="text"
+      id="nome"
+      placeholder="Nome do Livro"
+      oninput="primeiraMaiuscula(this)"
+      required>
+
+      <input
+      type="text"
+      id="codigo"
+      placeholder="Código do Livro"
+      required>
+
+      <button type="submit">
+        Adicionar Livro
+      </button>
+
+    </form>
+
+  </section>
+
+  <!-- LISTA -->
+
+  <section class="list-section">
+
+    <div class="section-tag">
+      📖 ACERVO
+    </div>
+
+    <h2>
+      Livros Registrados
+    </h2>
+
+    <div id="productList"></div>
+
+  </section>
+
+</main>
+
+<footer>
+
+  <div class="footer-logo">
+    ⚓ Rota <span>ZerØ13</span>
+  </div>
+
+  <p>
+    Sistema de Conferência de Livros
+  </p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
