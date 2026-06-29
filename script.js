@@ -15,7 +15,7 @@ const livros={
     "Turma da Mônica Jovem: Herdeiros da Terra": ["39184", "A"], 
     "Wickend": ["25583", "A"], 
     
-    "A Culpa é das Estrelas": ["68421", "B"], 
+    "A Culpa é Das Estrelas": ["68421", "B"], 
     "Assassin's Creed: Renascença": ["41583", "B"], 
     "Assassin's Creed: Irmandade": ["72619", "B"], 
     "Assassin's Creed: Unity": ["56834", "B"], 
