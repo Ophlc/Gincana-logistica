@@ -15,7 +15,7 @@ const livros={
     "Turma da Mônica Jovem: Herdeiros da Terra": ["39184", "A"], 
     "Wickend": ["25583", "A"], 
     
-    "A Culpa é Das Estrelas": ["68421", "B"], 
+    "A Culpa é das Estrelas": ["68421", "B"], 
     "Assassin's Creed: Renascença": ["41583", "B"], 
     "Assassin's Creed: Irmandade": ["72619", "B"], 
     "Assassin's Creed: Unity": ["56834", "B"], 
@@ -91,7 +91,32 @@ productForm.reset();
 });
 
 function primeiraMaiuscula(input) {
-            input.value = input.value
-                .toLowerCase()
-                .replace(/\b\w/g, letra => letra.toUpperCase());
+
+    const excecoes = [
+        "a", "o", "as", "os",
+        "um", "uma", "uns", "umas",
+        "de", "da", "do", "das", "dos",
+        "e", "em", "no", "na", "nos", "nas",
+        "por", "para", "com"
+    ];
+
+    let texto = input.value.toLowerCase().trim();
+
+    let palavras = texto.split(/\s+/);
+
+    palavras = palavras.map((palavra, indice) => {
+
+        if (indice > 0 && excecoes.includes(palavra)) {
+            return palavra;
+        }
+
+        return palavra.replace(
+            /^[a-zà-ÿ]/i,
+            letra => letra.toUpperCase()
+        );
+
+    });
+
+    input.value = palavras.join(" ");
+}
         }
