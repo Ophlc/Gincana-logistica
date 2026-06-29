@@ -90,33 +90,38 @@ productList.innerHTML+=`<div class="item"><strong>${nome}</strong><br>Código: $
 productForm.reset();
 });
 
+// Palavras que devem permanecer em minúsculas (artigos, preposições, conjunções),
+// a menos que sejam a primeira palavra do título ou venham logo após ":", "," ou "-"
+const palavrasMinusculas = new Set([
+    'de','da','do','das','dos','um','uma','uns','umas',
+    'e','ou','é','a','o','as','os',
+    'em','no','na','nos','nas',
+    'com','por','para','ao','aos','à','às',
+    // alguns títulos do acervo estão em inglês
+    'of','the','an','in','on','at','to','and'
+]);
+
 function primeiraMaiuscula(input) {
+    const cursor = input.selectionStart;
+    const palavras = input.value.toLowerCase().split(' ');
 
-    const excecoes = [
-        "a", "o", "as", "os",
-        "um", "uma", "uns", "umas",
-        "de", "da", "do", "das", "dos",
-        "e", "em", "no", "na", "nos", "nas",
-        "por", "para", "com"
-    ];
+    const resultado = palavras.map((palavra, i) => {
+        if (palavra.length === 0) return palavra;
 
-    let texto = input.value.toLowerCase().trim();
+        // remove pontuação no final da palavra só para comparar com a lista
+        const palavraLimpa = palavra.replace(/[.,:;!?()"]+$/, '');
 
-    let palavras = texto.split(/\s+/);
+        const anterior = i > 0 ? palavras[i - 1] : '';
+        const forcarMaiuscula = i === 0 || /[:,\-]$/.test(anterior);
 
-    palavras = palavras.map((palavra, indice) => {
-
-        if (indice > 0 && excecoes.includes(palavra)) {
-            return palavra;
+        if (forcarMaiuscula || !palavrasMinusculas.has(palavraLimpa)) {
+            // capitaliza só o primeiro caractere da palavra (não usa \b\w),
+            // por isso acento e apóstrofo no meio da palavra não são mais afetados
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
         }
-
-        return palavra.replace(
-            /^[a-zà-ÿ]/i,
-            letra => letra.toUpperCase()
-        );
-
+        return palavra;
     });
 
-    input.value = palavras.join(" ");
+    input.value = resultado.join(' ');
+    input.setSelectionRange(cursor, cursor); // mantém o cursor no lugar ao digitar
 }
-        }
