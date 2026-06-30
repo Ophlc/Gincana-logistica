@@ -3,13 +3,13 @@ const livros={
     "Barraca do Beijo":["35791", "A"], 
     "Club Penguin": ["17652", "A"], 
     "Diário de um Banana Dias de Cão": ["43268", "A"], 
-    "Diário de um Banana A Verdade Nua e Crua": ["39117", "A"], 
+    "Diário de um Banana a Verdade Nua e Crua": ["39117", "A"], 
     "End of the Chrysalis 47 Age": ["74825", "A"], 
     "Extraordinário": ["59143", "A"], 
     "Guerra Civil": ["28357", "A"], 
     "Harry Potter e o Prisioneiro de Azkaban": ["76418", "A"], 
     "Marley e Eu": ["21496", "A"], "Os Últimos Jovens da Terra": ["83749", "A"], 
-    "Percy Jackson e os Olimpianos O Ladrão de Raios": ["91827", "A"], 
+    "Percy Jackson e os Olimpianos o Ladrão de Raios": ["91827", "A"], 
     "Sete Monstros Brasileiros": ["58371", "A"], 
     "Star Wars Herdeiro do Jedi": ["68154", "A"], 
     "Turma da Mônica Jovem Herdeiros da Terra": ["39184", "A"], 
@@ -21,7 +21,7 @@ const livros={
     "Assassin's Creed Unity": ["56834", "B"], 
     "Crepúsculo": ["97245", "B"], 
     "Diário de um Zumbi do Minecraft": ["79256", "B"], 
-    "Dois Mundos Um Herói": ["81642", "B"], 
+    "Dois Mundos um Herói": ["81642", "B"], 
     "Goblin Slayes": ["52973", "B"], 
     "Halo Silentium": ["63782", "B"], 
     "Harry Potter e a Criança Amaldiçoada": ["85137", "B"], 
@@ -29,7 +29,7 @@ const livros={
     "O Hobbit": ["13864", "B"], 
     "O Menino do Pijama Listrado": ["34718", "B"], 
     "Os Cães Nunca Deixam de Amar": ["46529", "B"], 
-    "Turma da Mônica Jovem O Brilho de um Pulsar": ["17395", "B"]};
+    "Turma da Mônica Jovem o Brilho de um Pulsar": ["17395", "B"]};
 
 let registros=[];
 let m=0,s=0,ms=0,running=false,interval;
