@@ -1,4 +1,3 @@
-
 const livros={
     "Barraca do Beijo":["35791", "A"], 
     "Club Penguin": ["17652", "A"], 
@@ -30,38 +29,38 @@ const livros={
     "O Menino do Pijama Listrado": ["34718", "B"], 
     "Os Cães Nunca Deixam de Amar": ["46529", "B"], 
     "Turma da Mônica Jovem o Brilho de um Pulsar": ["17395", "B"]};
-
+ 
 let registros=[];
 let m=0,s=0,ms=0,running=false,interval;
 const timer=document.getElementById('timer');
-
+ 
 function upd()
 {
     ms++;if
     (ms>=100)
     {ms=0;s++;}
-
+ 
     if(s>=60)
     {s=0;m++;}timer.innerText=`${String(m).padStart(2,'0')}:${String(s)
     .padStart(2,'0')}:${String(ms).padStart(2,'0')}`; 
 }
-
+ 
 startBtn.onclick=()=>
     {
     if(!running){interval=setInterval(upd,10);running=true;}
     };
-
+ 
 resetBtn.onclick=()=>
     {
     clearInterval(interval);running=false;m=s=ms=0;timer.innerText='00:00:00';registros=[];productList.innerHTML='';
     };
-
+ 
 stopBtn.onclick=()=>
-
+ 
     {
 clearInterval(interval);running=false;
 let resultado=[];
-
+ 
 registros.forEach(r=>
     {
     let livro=livros[r.nome];
@@ -76,20 +75,48 @@ registros.forEach(r=>
 localStorage.setItem('resultadoLivros',JSON.stringify(resultado));
 localStorage.setItem('tempoFinal',timer.innerText);
 location.href='resultado.html';
-
+ 
    };
-
+ 
+// ===== Correção automática de acentos =====
+ 
+// remove acentos de uma string pra facilitar comparação
+function removerAcentos(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+ 
+// cria um índice: "titulo sem acento em minusculo" -> "Titulo Oficial Com Acento"
+const livrosNormalizados = {};
+Object.keys(livros).forEach(nome => {
+    const chave = removerAcentos(nome).toLowerCase();
+    livrosNormalizados[chave] = nome;
+});
+ 
+// tenta corrigir o nome digitado pro nome oficial (com acento)
+// se não encontrar correspondência, mantém o que foi digitado
+function corrigirAcentos(nomeDigitado) {
+    const chave = removerAcentos(nomeDigitado).toLowerCase().trim();
+    return livrosNormalizados[chave] || nomeDigitado;
+}
+ 
+// corrige assim que o campo perde o foco, pra pessoa já ver o nome certo na tela
+document.getElementById('nome').addEventListener('blur', function() {
+    this.value = corrigirAcentos(this.value);
+});
+ 
+// ===== Envio do formulário =====
+ 
 productForm.addEventListener('submit',e=>{
 e.preventDefault();
-
+ 
 if(!running) return alert('Inicie a operação primeiro!');
-let nome=document.getElementById('nome').value.trim();
+let nome=corrigirAcentos(document.getElementById('nome').value.trim());
 let codigo=document.getElementById('codigo').value.trim();
 registros.push({nome,codigo});
 productList.innerHTML+=`<div class="item"><strong>${nome}</strong><br>Código: ${codigo}</div>`;
 productForm.reset();
 });
-
+ 
 // Palavras que devem permanecer em minúsculas (artigos, preposições, conjunções),
 // a menos que sejam a primeira palavra do título ou venham logo após ":", "," ou "-"
 const palavrasMinusculas = new Set([
@@ -100,20 +127,20 @@ const palavrasMinusculas = new Set([
     // alguns títulos do acervo estão em inglês
     'of','the','an','in','on','at','to','and'
 ]);
-
+ 
 function primeiraMaiuscula(input) {
     const cursor = input.selectionStart;
     const palavras = input.value.toLowerCase().split(' ');
-
+ 
     const resultado = palavras.map((palavra, i) => {
         if (palavra.length === 0) return palavra;
-
+ 
         // remove pontuação no final da palavra só para comparar com a lista
         const palavraLimpa = palavra.replace(/[.,:;!?()"]+$/, '');
-
+ 
         const anterior = i > 0 ? palavras[i - 1] : '';
         const forcarMaiuscula = i === 0 || /[:,\-]$/.test(anterior);
-
+ 
         if (forcarMaiuscula || !palavrasMinusculas.has(palavraLimpa)) {
             // capitaliza só o primeiro caractere da palavra (não usa \b\w),
             // por isso acento e apóstrofo no meio da palavra não são mais afetados
@@ -121,7 +148,7 @@ function primeiraMaiuscula(input) {
         }
         return palavra;
     });
-
+ 
     input.value = resultado.join(' ');
     input.setSelectionRange(cursor, cursor); // mantém o cursor no lugar ao digitar
 }
